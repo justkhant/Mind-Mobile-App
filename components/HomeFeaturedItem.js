@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     padding: 10,
     shadowColor: '#000000',
     shadowOpacity: 0.3,
-    shadowRadius: 3,
+    shadowRadius: 2,
     shadowOffset: {
       height: 0,
       width: 0,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   featuredTitle: {
     position: 'absolute',
     color: Colors.HOME_VECT_COLOR,
-    fontSize: 25,
+    fontSize: 28,
     fontWeight: '500',
     bottom: 40,
     right: 0,
@@ -62,8 +62,7 @@ const styles = StyleSheet.create({
     color: Colors.HOME_VECT_COLOR,
     bottom: 20,
     right: 0,
-    fontSize: 15,
-    fontWeight: '300',
+    fontSize: 16,
     paddingRight: 17,
   },
 });

@@ -1,19 +1,34 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, View, Text, ScrollView} from 'react-native';
+import React, {useRef} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Image,
+} from 'react-native';
 import {Header} from 'react-native-elements';
 import {FlatListSlider} from 'react-native-flatlist-slider';
+import {useScrollToTop} from '@react-navigation/native';
 
 import {Colors} from '../constants/theme';
+
 import homeBanner from '../assets/home_banner.png';
 import starterGuideImage from '../assets/starter_guide.png';
 import experiencedGuideImage from '../assets/experienced_guide.png';
 import veteranGuideImage from '../assets/veteran_guide.png';
+import homeRecentImage from '../assets/home_recent.png';
+import homeTrendingImage from '../assets/home_trending.png';
+import expertOpinionImage from '../assets/expert_opinion.png';
 
 import ImageBanner from '../components/ImageBanner';
 import HomeFeaturedItem from '../components/HomeFeaturedItem';
 import SmallCard from '../components/SmallCard';
 
 const Home = ({navigation}) => {
+  const scrollViewRef = useRef(null);
+  useScrollToTop(scrollViewRef);
+
   const featuredItemData = [
     {
       image: starterGuideImage,
@@ -52,8 +67,11 @@ const Home = ({navigation}) => {
         }}
       />
       <SafeAreaView style={styles.scrollContainer}>
-        <ScrollView style={styles.scrollView} pinchGestureEnabled={false}>
-          <View style={styles.body}>
+        <ScrollView
+          ref={scrollViewRef}
+          style={styles.scrollView}
+          pinchGestureEnabled={false}>
+          <View style={styles.scrollBody}>
             <ImageBanner source={homeBanner} />
             <Text style={styles.featuredHeader}>Featured</Text>
             <FlatListSlider
@@ -64,8 +82,23 @@ const Home = ({navigation}) => {
               loop={false}
             />
             <View style={styles.secondarySection}>
-              <SmallCard title="Recent" />
-              <SmallCard title="Trending" />
+              <SmallCard image={homeRecentImage} title="Recent" />
+              <SmallCard image={homeTrendingImage} title="Trending" />
+            </View>
+            <View style={styles.primarySection}>
+              <View style={styles.expertOpinion}>
+                <Text style={styles.expertOpinionTitle}>
+                  Expert Opinion Column
+                </Text>
+                <Text style={styles.expertOpinionText}>
+                  A place to find mental health advice from an accredited
+                  source.
+                </Text>
+                <Image
+                  source={expertOpinionImage}
+                  style={styles.expertOpinionImage}
+                />
+              </View>
             </View>
           </View>
         </ScrollView>
@@ -84,8 +117,8 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
   },
-  body: {
-    paddingBottom: 100,
+  scrollBody: {
+    paddingBottom: 105,
   },
   header: {
     backgroundColor: Colors.HOME_BG_COLOR,
@@ -119,5 +152,43 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     marginTop: 18,
+  },
+  primarySection: {
+    marginTop: 40,
+    paddingHorizontal: 20,
+  },
+  expertOpinion: {
+    width: '100%',
+    height: 430,
+    backgroundColor: '#FFE382',
+    borderRadius: 8,
+    padding: 22,
+    shadowColor: '#000000',
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 0,
+      width: 0,
+    },
+  },
+  expertOpinionTitle: {
+    fontSize: 34,
+    fontWeight: '500',
+    lineHeight: 45,
+    color: Colors.HOME_VECT_COLOR,
+  },
+  expertOpinionText: {
+    fontSize: 16,
+    color: Colors.HOME_VECT_COLOR,
+    marginTop: 32,
+    lineHeight: 35,
+  },
+  expertOpinionImage: {
+    position: 'absolute',
+    marginTop: 32,
+    width: '100%',
+    height: '43%',
+    bottom: 30,
+    right: 10,
   },
 });
